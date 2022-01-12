@@ -35,7 +35,9 @@ and compile
     cd build
     cmake ..
     make -j$(nproc)
- 
+
+Please refer to ![compile cvm-runtime]https://github.com/CortexFoundation/cvm-runtime/blob/master/docs/cvm/install.md for details.
+
 #### MRT
 
  
