@@ -4,7 +4,7 @@ This repo includes training yolov5 model in MXNET framework, model quantization 
 ### Train your own model
 Download this repo to local machine
 
-git clone https://github.com/CortexFoundation/yolov5_mxnet.git 
+    git clone https://github.com/CortexFoundation/yolov5_mxnet.git 
 
 Prepare the training dataset including image files and corresponding labels, make the directory structure as following,
 
