@@ -29,7 +29,7 @@ The CVM Runtime library is used in @CortexLabs full-node project: CortexTheseus,
 
 First download Cortex CVM-Runtime repo https://github.com/CortexFoundation/cvm-runtime.git
 
-    git clone https://github.com/CortexFoundation/cvm-runtime.git
+    git clone https://github.com/CortexFoundation/cvm-runtime.git -t ryt
 
 and compile
 
@@ -47,8 +47,16 @@ MRT, short for Model Representation Tool, aims to convert floating model into a 
 
 There is a detailed example https://github.com/CortexFoundation/cvm-runtime/blob/dev-example/docs/mrt/example.md for MRT usage. After one got a trained model,
 
-    cp path-to-model-params/yolov5x-0010.params path-to-model-for-mrt/yolov5x.params
-    cp path-to-model-json/yolov5x-0010.json path-to-model-for-mrt/yolov5x.json
+    cp path-to-model-params/yolov5x-0010.params ~/mrt_model/yolov5x.params
+    cp path-to-model-json/yolov5x-0010.json ~/mrt_model/yolov5x.json
+
+make a yaml file yolov5x.yaml like as https://github.com/CortexFoundation/cvm-runtime/blob/ryt/tests/mrt/yolov5s/yolov5s.yaml, save as cvm-runtime/tests/mrt/model_zoo/yolov5x.yaml, then
+
+    cd cvm-runtime/
+    python main2 tests/mrt/model_zoo/tests/mrt/model_zoo/yolov5x.yaml --compile.dump_dir /tmp/
+
+MRT will generate two files in /tmp/yolov5x_cvm/ includind fixed-point parameter file "params" and symbol file "symbol".
+
 
     
 
