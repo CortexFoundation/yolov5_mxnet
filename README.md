@@ -8,7 +8,7 @@ git clone https://github.com/CortexFoundation/yolov5_mxnet.git
 
 Prepare the training dataset including image files and corresponding labels, make the directory structure as following,
 
-![dataset directory structure](https://github.com/CortexFoundation/yolov5_mxnet/tree/main/src)
+![dataset directory structure](https://github.com/CortexFoundation/yolov5_mxnet/tree/main/src/tree.jpg)
 
          
          
