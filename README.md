@@ -4,13 +4,22 @@ This repo includes training yolov5 model in MXNET framework, model quantization 
 ### Train your own model
 Download this repo to local machine
 
-git clone https://github.com/CortexFoundation/yolov5_mxnet.git
+git clone https://github.com/CortexFoundation/yolov5_mxnet.git 
 
 Prepare the training dataset including image files and corresponding labels, make the directory structure as following,
 
-![dataset directory structure](https://github.com/CortexFoundation/yolov5_mxnet/tree/main/src/tree.jpg)
+![dataset directory structure](https://github.com/CortexFoundation/yolov5_mxnet/blob/main/src/tree.jpg)
 
-         
-         
-  
-  
+For training, you need to specify the model name, batch size learning rate etc, then type command below for an example.
+
+python train.py --model=yolov5x --cpu=False --gpu=0 --batch_size=16 --lr=0.0001
+
+Two traned model files (.params and .json) will be generated in folder ./weight/, which can used for validatation via 
+
+python detect.py --model=yolov5x --cpu=False --gpu=0 --batch_size=1
+
+and the final output images save in ./results/yolov5x/ directory.
+
+### CVM Runtime and MRT
+
+
