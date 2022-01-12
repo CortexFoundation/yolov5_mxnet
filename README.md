@@ -59,7 +59,7 @@ MRT will generate two files in /tmp/yolov5x_cvm/ includind fixed-point parameter
 
 #### Model upload
 
-Following instructions on https://github.com/CortexFoundation/torrentfs, to make torrent file and upload to Cortex blockchain.
+Following instructions on https://github.com/CortexFoundation/torrentfs, to make torrent file and upload to Cortex blockchain. One can find the model in cerebro explorer https://cerebro.cortexlabs.ai/#/model and enjoy the on-chain AI inference after successful uploading.
 
 
     
