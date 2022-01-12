@@ -20,6 +20,8 @@ python detect.py --model=yolov5x --cpu=False --gpu=0 --batch_size=1
 
 and the final output images save in ./results/yolov5x/ directory.
 
+The model accuracy in training depends on datasets (number of images, object balance, class balance, ...) and learning rate (optimizer, initial value, ...), so one need great care while training to get a satisfactory training model.
+
 ### CVM Runtime and MRT
 
 
