@@ -57,6 +57,10 @@ make a yaml file yolov5x.yaml like as https://github.com/CortexFoundation/cvm-ru
 
 MRT will generate two files in /tmp/yolov5x_cvm/ includind fixed-point parameter file "params" and symbol file "symbol".
 
+#### Model upload
+
+Following instructions on https://github.com/CortexFoundation/torrentfs, to make torrent file and upload to Cortex blockchain.
+
 
     
 
