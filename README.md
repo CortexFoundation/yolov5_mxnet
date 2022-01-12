@@ -24,7 +24,10 @@ The model accuracy in training depends on datasets (number of images, object bal
 
 ### CVM Runtime and MRT
 #### cvm-runtime
-Download Cortex CVM-Runtime repo https://github.com/CortexFoundation/cvm-runtime.git
+
+The CVM Runtime library is used in @CortexLabs full-node project: CortexTheseus, working for pure deterministic AI model inference.
+
+First download Cortex CVM-Runtime repo https://github.com/CortexFoundation/cvm-runtime.git
 
     git clone https://github.com/CortexFoundation/cvm-runtime.git
 
@@ -40,6 +43,13 @@ Please refer to https://github.com/CortexFoundation/cvm-runtime/blob/master/docs
 
 #### MRT
 
- 
+MRT, short for Model Representation Tool, aims to convert floating model into a deterministic and non-data-overflow network. MRT links the off-chain developer community to the on-chain ecosystem, from Off-chain deep learning to MRT transformations, and then uploading to Cortex Blockchain for on-chain deterministic inference.
+
+There is a detailed example https://github.com/CortexFoundation/cvm-runtime/blob/dev-example/docs/mrt/example.md for MRT usage. After one got a trained model,
+
+    cp path-to-model-params/yolov5x-0010.params path-to-model-for-mrt/yolov5x.params
+    cp path-to-model-json/yolov5x-0010.json path-to-model-for-mrt/yolov5x.json
+
+    
 
 
