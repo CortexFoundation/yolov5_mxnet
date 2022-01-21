@@ -10,9 +10,17 @@ import cv2
 import mxnet as mx
 from utils import non_max_suppression, Annotator, scale_coords, Colors
 
+def str2bool(v):
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Unsupported value encountered.')
+
 def parse_opt():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--cpu",         type=bool,  default=True,     help="whether or not using cpu for training")
+    parser.add_argument("--cpu",         type=str2bool,default=False,     help="whether or not using cpu for training")
     parser.add_argument("--gpu",         type=int,   default=2,         help="which gpu used for training")
     parser.add_argument("--batch_size",  type=int,   default=1,         help="batch size used for training")
     parser.add_argument("--classes",     type=int,   default=80,        help="how many classes for the detection and classfication problem")
@@ -43,27 +51,27 @@ def main(opt):
         'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear',
         'hair drier', 'toothbrush']
 
-    args = parse_opt()
-    ctx = mx.cpu() if args.cpu else mx.gpu(args.gpu)
+    ctx = mx.cpu() if opt.cpu else mx.gpu(opt.gpu)
+    print(ctx)
 
     gw = {"n":1, "s":2, "m":3, "l":4, "x":5}
     gd = {"n":1, "s":1, "m":2, "l":3, "x":4}
-    postfix = args.model[-1]
-    model = yolov5(batch_size=args.batch_size, mode="val", ctx=ctx, act=args.silu, gd=gd[postfix], gw=gw[postfix])
+    postfix = opt.model[-1]
+    model = yolov5(batch_size=opt.batch_size, mode="val", ctx=ctx, act=opt.silu, gd=gd[postfix], gw=gw[postfix])
     model.collect_params().initialize(init=mx.init.Xavier(), ctx=ctx)
     #model.hybridize()
 
     try:
         EPOCH = []
         start_epoch = 0
-        for f in os.listdir(args.model_dir):
-            if f.endswith("params") and args.model in f:
+        for f in os.listdir(opt.model_dir):
+            if f.endswith("params") and opt.model in f:
                 name_epoch = f.strip().split(".")[0].split("-")
-                if len(name_epoch) == 2 and name_epoch[0] == args.model:
+                if len(name_epoch) == 2 and name_epoch[0] == opt.model:
                     EPOCH.append(name_epoch[1])
         tmp = [int(_) for _ in EPOCH]
         ind = tmp.index(max(tmp))
-        params_file = os.path.join(args.model_dir, args.model+"-"+EPOCH[ind]+".params")
+        params_file = os.path.join(opt.model_dir, opt.model+"-"+EPOCH[ind]+".params")
         model.collect_params().load(params_file,ignore_extra=False)
         
         print(f'load weight {params_file} successfully')
@@ -77,16 +85,16 @@ def main(opt):
         for f in os.listdir(dirs):
             os.remove(os.path.join(dirs,f))
 
-    for f in os.listdir(args.dataset):
+    for f in os.listdir(opt.dataset):
         _, ext = os.path.splitext(f)
         if ext != ".jpg" and ext != ".JPG" and ext != ".png" and ext != ".PNG":
             continue
         print(f)
-        file_name = os.path.join(args.dataset, f)
+        file_name = os.path.join(opt.dataset, f)
         img = cv2.imread(file_name)
         img0s = img.copy()
         height, width = img.shape[0:2]
-        scale = min(args.imgsz/height, args.imgsz/width)
+        scale = min(opt.imgsz/height, opt.imgsz/width)
         h0, w0 = height*scale, width*scale
         img0 = cv2.resize(img, (round(w0/32.)*32, round(h0/32.)*32))
         img = img0.astype("float32")/255.
