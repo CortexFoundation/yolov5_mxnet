@@ -1,3 +1,6 @@
+#!/usr/bin/python
+#coding:utf-8
+
 import os
 import mxnet as mx
 import argparse
@@ -19,9 +22,9 @@ def parse_opt():
     parser.add_argument("--gpu",         type=int,   default=2,         help="which gpu used for training")
     parser.add_argument("--batch_size",  type=int,   default=16,        help="batch size")
     parser.add_argument("--imgsz",       type=int,   default=640,       help="input image size")
-    parser.add_argument("--lr",          type=float, default=0.00001,      help="learning rate")
+    parser.add_argument("--lr",          type=float, default=0.001,      help="learning rate")
     parser.add_argument("--classes",     type=int,   default=80,        help="how many classes for the detection and classfication problem")
-    parser.add_argument("--dataset",     type=str,   default="./dataset/train",   help="trial data for debug or training")
+    parser.add_argument("--dataset",     type=str,   default="./dataset/trial",   help="trial data for debug or training")
     parser.add_argument("--model_dir",   type=str,   default="./",      help="Model dir for save and load")
     parser.add_argument("--model",       type=str,   default="yolov5s", help="model name")
     parser.add_argument("--silu",        type=str,   default="silu",    help="activation with silu or relu")
@@ -93,34 +96,6 @@ def main(opt):
         for imgs, labels in train_dataloader:
             imgs = nd.array(imgs.astype("float32")/255.).as_in_context(ctx)
 
-            '''
-            # to verify the training image data and label are correct or not
-            names = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light',
-                'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow',
-                'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee',
-                'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard',
-                'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple',
-                'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch',
-                'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone',
-                'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear',
-                'hair drier', 'toothbrush']
-
-            img0 = imgs.asnumpy().transpose((0,2,3,1))+0.5
-            targets0 = labels
-            for i, img1 in enumerate(img0):
-                ind = np.where(targets0[:,0] == i)[0]
-                labels0 = targets0[ind,...]
-                for i_label, label in enumerate(labels0):
-                    cls, x_c, y_c, w, h = label[1:]
-                    x_c, y_c, w, h = np.array([x_c, y_c, w, h])*640
-                    left, top, right, bottom = int(x_c - w/2), int(y_c - h/2), int(x_c + w/2), int(y_c + h/2)
-                    img1 = cv2.rectangle(img1, (left, top), (right, bottom), (255,0,0))
-                    img1 = cv2.putText(img1, names[int(cls)], (left+4, top+5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 2)
-                cv2.imshow("{}".format(i), img1)
-                cv2.waitKey(5000)
-                cv2.destroyAllWindows()
-            '''
-
             with autograd.record():
                 pred = model(imgs)
             tcls, tbox, indices, anchors = build_targets(pred, labels, ctx=ctx, imgsize=args.imgsz)
@@ -137,7 +112,7 @@ def main(opt):
                 lbox_np = lbox.asscalar()
                 lobj_np = lobj.asscalar()
                 lcls_np = lcls.asscalar()
-            txt = "iter {:6d}: loss = {:4f}, lbox = {:4f}, lobj = {:4f}, lcls = {:4f}. bs={:2d},lr={:5f}".format(iter, lbox_np+lobj_np+lcls_np, lbox_np, lobj_np, lcls_np, args.batch_size, schedule.base_lr)           
+            txt = "iter {:6d}: loss = {:4f}, lbox = {:4f}, lobj = {:4f}, lcls = {:4f}, bs={:2d}, lr={:5f}".format(iter, lbox_np+lobj_np+lcls_np, lbox_np, lobj_np, lcls_np, args.batch_size, schedule.base_lr)           
             print(txt)
             logger.info(txt)
             if iter % 20000 == 19999:

@@ -31,7 +31,6 @@ def build_targets(pred, targets, ctx, imgsize=640):
     for i in range(3):
         anchors = ANCHORS[i]
         gain[2:6] = np.array(pred[i].shape, dtype="int32")[[3, 2, 3, 2]]  # xyxy gain
-        #gain[2:6] = np.ones((4), dtype="float32")*640/8*np.power(2, i)
         # Match targets to anchors
         t = targets * gain
         if nt:
@@ -64,7 +63,6 @@ def build_targets(pred, targets, ctx, imgsize=640):
         indices.append((nd.array(b, ctx=ctx),nd.array(a, ctx=ctx),nd.array(gj.clip(0, gain[3]-1), ctx=ctx), nd.array(gi.clip(0, gain[2]-1), ctx=ctx)))
         tbox.append(nd.array(np.concatenate((gxy-gij,gwh), axis=1), ctx=ctx))  # box
         anch.append(nd.array(anchors[a], ctx=ctx))  # anchors
-        #tcls.append(nd.array(c, ctx=ctx))  # class
         n = c.shape[0]
         t = np.zeros((n, 80), dtype="float32")
         t[range(n), c] = 1.
@@ -182,18 +180,13 @@ class ComputeLoss(mx.gluon.loss.Loss):
         
     def forward(self, p, tcls, tbox, indices, anchors):
         lcls, lbox, lobj = nd.zeros(1, self.ctx), nd.zeros(1, self.ctx), nd.zeros(1, self.ctx)
-        #tcls, tbox, indices, anchors = self.build_targets(p, targets) 
-        #log = ""
         # Losses
         for i, pi in enumerate(p):  # layer index, layer predictions
-            #pi = pi.asnumpy()
-            #print(indices[i][0].shape, indices[i][1].shape,indices[i][2].shape,indices[i][3].shape,)
             b, a, gj, gi = indices[i]  # image, anchor, gridy, gridx
-            #tobj = nd.zeros_like(pi[:,:,:,:, 0])  # target obj
+            tobj = nd.zeros_like(pi[..., 0])  # target obj
             
             n = b.shape[0]  # number of targets
-            if n:
-                #log = log + "n={:} ".format(n)                
+            if n:             
                 ps = pi[b, a, gj, gi]  # prediction subset corresponding to targets
 
                 # Regression
@@ -210,45 +203,23 @@ class ComputeLoss(mx.gluon.loss.Loss):
                     b, a, gj, gi, score_iou = b[sort_id], a[sort_id], gj[sort_id], gi[sort_id], score_iou[sort_id]
 
                 if self.nc > 1: 
-                    #t = np.zeros_like(ps[:, 5:])
-                    #t[range(n), tcls[i]] = self.cp
                     lcls = lcls + self.BCEcls(ps[:, 5:], tcls[i], None, self.pos_weight).mean()
-            else:
-                continue
             
-            EPS = 1e-10
-            #log = log + "score_iou.shape[0]={:}".format(score_iou.shape[0])
+            
+            EPS = 1e-6
             if score_iou.shape[0] > 0:
-                ratio = 5.
-                size_obj = b.size
-                size_non = pi[...,4].size - size_obj
                 #weight = nd.array([2*size_non/(size_non+ratio*size_obj), 2*ratio*size_obj/(size_non+ratio*size_obj)], ctx=self.ctx)
                 obj0 = - nd.log(EPS+pi[b,a,gj,gi,4].sigmoid())*score_iou - nd.log(EPS+1-pi[b,a,gj,gi,4].sigmoid())*(1-score_iou)
                 obj1 = - nd.log(EPS + 1 - pi[:,:,:,:,4].sigmoid())
                 obj2 = - nd.log(EPS + 1 - pi[b,a,gj,gi,4].sigmoid())
-                obji = obj0.sum()*2 + (obj1.sum() - obj2.sum())/10
+                obji = obj0.sum() + (obj1.sum() - obj2.sum())
                 obji = obji/pi.shape[0]/pi.shape[1]/pi.shape[2]/pi.shape[3]
                 lobj = lobj + obji * self.balance[i]  # obj loss
             else:
-                lobj = 0.
+                lobj = lobj + self.BCEobj(pi[..., 4], tobj) * self.balance[i]
 
-            '''
-            if score_iou.shape[0] > 0:
-                all_zeros = nd.zeros_like(pi[:,:,:,:, 4])
-                ind_zeros = nd.zeros_like(pi[b,a,gj,gi,4])
-                obji = self.BCEobj(pi[b,a,gj,gi,4], score_iou).sum() + self.BCEobj(pi[:,:,:,:,4], all_zeros).sum() - self.BCEobj(pi[b,a,gj,gi,4], ind_zeros).sum()
-                obji = obji/pi.shape[0]/pi.shape[1]/pi.shape[2]/pi.shape[3]
-                lobj = lobj + obji * self.balance[i]  # obj loss
-            else:
-                lobj = 0.
-            '''
-            if self.autobalance:
-                self.balance[i] = self.balance[i] * 0.9999 + 0.0001 / obji
-
-        if self.autobalance:
-            self.balance = [x / self.balance[self.ssi] for x in self.balance]
         lbox = lbox * self.hyp['box'] # 0.05
         lobj = lobj * self.hyp['obj'] # 1
         lcls = lcls * self.hyp['cls'] # 0.5
-        #print(log)
-        return lbox + lobj + lcls, lbox, lobj, lcls
+        return lbox + lobj + lcls, lbox.detach(), lobj.detach(), lcls.detach()
+
