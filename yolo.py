@@ -26,23 +26,26 @@ class SiLU(HybridBlock):
             print("error in activation!")
 
 class conv(HybridBlock):
-    def __init__(self, ch_in=0, ch_out=0, kernel=1, strid=1, padding=0, group=1, bais=False, act=None):
+    def __init__(self, ch_in=0, ch_out=0, kernel=1, strid=1, padding=0, group=1, bais=False, act=None, fuse=False):
         super(conv, self).__init__()
-        self.conv = nn.Conv2D(channels=ch_out,kernel_size=(kernel,kernel),strides=(strid,strid), padding=padding, groups=group, use_bias=bais, activation=None)
-        self.batch= nn.BatchNorm()
+        self.fuse = fuse
+        self.conv = nn.Conv2D(channels=ch_out,kernel_size=(kernel,kernel),strides=(strid,strid), padding=padding, groups=group, use_bias=True if self.fuse else bais, activation=None)
+        self.batch= None if self.fuse else nn.BatchNorm()
         self.silu = SiLU(act)
     def hybrid_forward(self, F, x):
         x = self.conv(x)
-        x = self.batch(x)
+        if not self.fuse:
+            x = self.batch(x)
         x = self.silu(x)
         return x
 
 class bottle(HybridBlock):
-    def __init__(self, ch_in=0, ch_out=0, short_cut=True, group=1, e=0.5, act=None):
+    def __init__(self, ch_in=0, ch_out=0, short_cut=True, group=1, e=0.5, act=None, fuse=False):
         super(bottle, self).__init__()
         c_=int(ch_out*e)
-        self.conv1=conv(ch_in, c_, act=act)
-        self.conv2=conv(c_,    ch_out, 3,1,1, act=act)
+        self.fuse = fuse
+        self.conv1=conv(ch_in, c_, act=act, fuse=self.fuse)
+        self.conv2=conv(c_,    ch_out, 3,1,1, act=act, fuse=self.fuse)
         self.add = short_cut if ch_in == ch_out else False
     def hybrid_forward(self, F, x):
         if self.add:
@@ -65,13 +68,14 @@ class c3(HybridBlock):
         return self.conv3(nd.concat(m_out, self.conv2(x), dim=1))
 
 class c3_rep1(HybridBlock):
-    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None):
+    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None, fuse=False):
         super(c3_rep1, self).__init__()
         c_ = int(ch_out*e)
-        self.conv1 = conv(ch_in,c_, act=act)
-        self.conv2 = conv(ch_in,c_, act=act)
-        self.conv3 = conv(2*c_,ch_out, act=act)
-        self.bottle = bottle(c_, c_, short_cut, group, 1.0, act=act)
+        self.fuse = fuse
+        self.conv1 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv2 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv3 = conv(2*c_,ch_out, act=act, fuse=self.fuse)
+        self.bottle = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
         #self.bottle_list = [bottle(c_, c_, short_cut, group, 1.0) for _ in range(repeat)]
     def hybrid_forward(self, F, x):
         m_out = self.conv1(x)
@@ -79,14 +83,15 @@ class c3_rep1(HybridBlock):
         return self.conv3(F.concat(m_out, self.conv2(x), dim=1))
 
 class c3_rep2(HybridBlock):
-    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None):
+    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None, fuse=False):
         super(c3_rep2, self).__init__()
         c_ = int(ch_out*e)
-        self.conv1 = conv(ch_in,c_, act=act)
-        self.conv2 = conv(ch_in,c_, act=act)
-        self.conv3 = conv(2*c_,ch_out, act=act)
-        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act)
+        self.fuse = fuse
+        self.conv1 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv2 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv3 = conv(2*c_,ch_out, act=act, fuse=self.fuse)
+        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
         #self.bottle_list = [bottle(c_, c_, short_cut, group, 1.0) for _ in range(repeat)]
     def hybrid_forward(self, F, x):
         m_out = self.conv1(x)
@@ -97,15 +102,16 @@ class c3_rep2(HybridBlock):
         return self.conv3(F.concat(m_out, self.conv2(x), dim=1))
 
 class c3_rep3(HybridBlock):
-    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None):
+    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None, fuse=False):
         super(c3_rep3, self).__init__()
         c_ = int(ch_out*e)
-        self.conv1 = conv(ch_in,c_, act=act)
-        self.conv2 = conv(ch_in,c_, act=act)
-        self.conv3 = conv(2*c_,ch_out, act=act)
-        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle2 = bottle(c_, c_, short_cut, group, 1.0, act=act)
+        self.fuse = fuse
+        self.conv1 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv2 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv3 = conv(2*c_,ch_out, act=act, fuse=self.fuse)
+        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle2 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
         #self.bottle_list = [bottle(c_, c_, short_cut, group, 1.0) for _ in range(repeat)]
     def hybrid_forward(self, F, x):
         m_out = self.conv1(x)
@@ -117,16 +123,17 @@ class c3_rep3(HybridBlock):
         return self.conv3(F.concat(m_out, self.conv2(x), dim=1))
 
 class c3_rep4(HybridBlock):
-    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None):
+    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None, fuse=False):
         super(c3_rep4, self).__init__()
         c_ = int(ch_out*e)
-        self.conv1 = conv(ch_in,c_, act=act)
-        self.conv2 = conv(ch_in,c_, act=act)
-        self.conv3 = conv(2*c_,ch_out, act=act)
-        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle2 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle3 = bottle(c_, c_, short_cut, group, 1.0, act=act)
+        self.fuse = fuse
+        self.conv1 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv2 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv3 = conv(2*c_,ch_out, act=act, fuse=self.fuse)
+        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle2 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle3 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
         #self.bottle_list = [bottle(c_, c_, short_cut, group, 1.0) for _ in range(repeat)]
     def hybrid_forward(self, F, x):
         m_out = self.conv1(x)
@@ -139,18 +146,19 @@ class c3_rep4(HybridBlock):
         return self.conv3(F.concat(m_out, self.conv2(x), dim=1))
 
 class c3_rep6(HybridBlock):
-    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None):
+    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None, fuse=False):
         super(c3_rep6, self).__init__()
         c_ = int(ch_out*e)
-        self.conv1 = conv(ch_in,c_, act=act)
-        self.conv2 = conv(ch_in,c_, act=act)
-        self.conv3 = conv(2*c_,ch_out, act=act)
-        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle2 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle3 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle4 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle5 = bottle(c_, c_, short_cut, group, 1.0, act=act)
+        self.fuse = fuse
+        self.conv1 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv2 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv3 = conv(2*c_,ch_out, act=act, fuse=self.fuse)
+        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle2 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle3 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle4 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle5 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
         #self.bottle_list = [bottle(c_, c_, short_cut, group, 1.0) for _ in range(repeat)]
     def hybrid_forward(self, F, x):
         m_out = self.conv1(x)
@@ -165,20 +173,21 @@ class c3_rep6(HybridBlock):
         return self.conv3(F.concat(m_out, self.conv2(x), dim=1))
 
 class c3_rep8(HybridBlock):
-    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None):
+    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None, fuse=False):
         super(c3_rep8, self).__init__()
         c_ = int(ch_out*e)
-        self.conv1 = conv(ch_in,c_, act=act)
-        self.conv2 = conv(ch_in,c_, act=act)
-        self.conv3 = conv(2*c_,ch_out, act=act)
-        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle2 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle3 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle4 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle5 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle6 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle7 = bottle(c_, c_, short_cut, group, 1.0, act=act)
+        self.fuse = fuse
+        self.conv1 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv2 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv3 = conv(2*c_,ch_out, act=act, fuse=self.fuse)
+        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle2 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle3 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle4 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle5 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle6 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle7 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
         #self.bottle_list = [bottle(c_, c_, short_cut, group, 1.0) for _ in range(repeat)]
     def hybrid_forward(self, F, x):
         m_out = self.conv1(x)
@@ -195,21 +204,22 @@ class c3_rep8(HybridBlock):
         return self.conv3(F.concat(m_out, self.conv2(x), dim=1))
 
 class c3_rep9(HybridBlock):
-    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None):
+    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None, fuse=False):
         super(c3_rep9, self).__init__()
         c_ = int(ch_out*e)
-        self.conv1 = conv(ch_in,c_, act=act)
-        self.conv2 = conv(ch_in,c_, act=act)
-        self.conv3 = conv(2*c_,ch_out, act=act)
-        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle2 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle3 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle4 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle5 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle6 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle7 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle8 = bottle(c_, c_, short_cut, group, 1.0, act=act)
+        self.fuse = fuse
+        self.conv1 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv2 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv3 = conv(2*c_,ch_out, act=act, fuse=self.fuse)
+        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle2 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle3 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle4 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle5 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle6 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle7 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle8 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
         #self.bottle_list = [bottle(c_, c_, short_cut, group, 1.0) for _ in range(repeat)]
     def hybrid_forward(self, F, x):
         m_out = self.conv1(x)
@@ -227,24 +237,25 @@ class c3_rep9(HybridBlock):
         return self.conv3(F.concat(m_out, self.conv2(x), dim=1))
 
 class c3_rep12(HybridBlock):
-    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None):
+    def __init__(self, ch_in=0, ch_out=0,repeat=1, short_cut=True, group=1, e=0.5, act=None, fuse=False):
         super(c3_rep12, self).__init__()
         c_ = int(ch_out*e)
-        self.conv1 = conv(ch_in,c_, act=act)
-        self.conv2 = conv(ch_in,c_, act=act)
-        self.conv3 = conv(2*c_,ch_out, act=act)
-        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle2 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle3 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle4 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle5 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle6 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle7 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle8 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle9 = bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle10= bottle(c_, c_, short_cut, group, 1.0, act=act)
-        self.bottle11= bottle(c_, c_, short_cut, group, 1.0, act=act)
+        self.fuse = fuse
+        self.conv1 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv2 = conv(ch_in,c_, act=act, fuse=self.fuse)
+        self.conv3 = conv(2*c_,ch_out, act=act, fuse=self.fuse)
+        self.bottle0 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle1 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle2 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle3 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle4 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle5 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle6 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle7 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle8 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle9 = bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle10= bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
+        self.bottle11= bottle(c_, c_, short_cut, group, 1.0, act=act, fuse=self.fuse)
         #self.bottle_list = [bottle(c_, c_, short_cut, group, 1.0) for _ in range(repeat)]
     def hybrid_forward(self, F, x):
         m_out = self.conv1(x)
@@ -265,11 +276,12 @@ class c3_rep12(HybridBlock):
         return self.conv3(F.concat(m_out, self.conv2(x), dim=1))
 
 class sppf(HybridBlock):
-    def __init__(self, ch_in=0, ch_out=0, k=5, act=None):
+    def __init__(self, ch_in=0, ch_out=0, k=5, act=None, fuse=False):
         super(sppf, self).__init__()
         c_ = ch_in//2
-        self.conv1=conv(ch_in, c_, act=act)
-        self.conv2=conv(c_*4, ch_out, act=act)
+        self.fuse = fuse
+        self.conv1=conv(ch_in, c_, act=act, fuse=self.fuse)
+        self.conv2=conv(c_*4, ch_out, act=act, fuse=self.fuse)
         self.m = nn.MaxPool2D(pool_size=(k,k), strides=(1,1), padding=(k//2, k//2))
 
     def hybrid_forward(self, F, x):
@@ -391,36 +403,37 @@ class detect(HybridBlock):
 
 
 class yolov5(HybridBlock):
-    def __init__(self, batch_size = 16, mode="train", ctx=mx.cpu(), act="silu", gd=1, gw=1):
+    def __init__(self, batch_size = 16, mode="train", ctx=mx.cpu(), act="silu", gd=1, gw=1, fuse=False):
         super(yolov5, self).__init__()
         self.ctx = ctx
         self.mode = mode
         self.batch_size = batch_size
         self.act = act
-        self.conv1 = conv(3, 16*gw,6,2,2, act=self.act)
-        self.conv2 = conv(16*gw,32*gw,3,2,1, act=self.act)
-        self.c3_1 = eval(f'c3_rep{gd*1}')(32*gw,32*gw,1,True,group=1,e=0.5, act=self.act)
-        self.conv3 = conv(32*gw,64*gw,3,2,1, act=self.act)
-        self.c3_2 = eval(f'c3_rep{gd*2}')(64*gw,64*gw,2,True,group=1,e=0.5, act=self.act)
-        self.conv4 = conv(64*gw,128*gw,3,2,1, act=self.act)
-        self.c3_3 = eval(f'c3_rep{gd*3}')(128*gw,128*gw,3,True,group=1,e=0.5, act=self.act)
-        self.conv5 = conv(128*gw,256*gw,3,2,1, act=self.act)
-        self.c3_4 = eval(f'c3_rep{gd*1}')(256*gw,256*gw,1,True,group=1,e=0.5, act=self.act)
-        self.sppf = sppf(256*gw,256*gw,5, act=self.act)
-        self.conv6 = conv(256*gw,128*gw,1,1, act=self.act)
+        self.fuse = fuse
+        self.conv1 = conv(3, 16*gw,6,2,2, act=self.act, fuse=self.fuse)
+        self.conv2 = conv(16*gw,32*gw,3,2,1, act=self.act, fuse=self.fuse)
+        self.c3_1 = eval(f'c3_rep{gd*1}')(32*gw,32*gw,1,True,group=1,e=0.5, act=self.act, fuse=self.fuse)
+        self.conv3 = conv(32*gw,64*gw,3,2,1, act=self.act, fuse=self.fuse)
+        self.c3_2 = eval(f'c3_rep{gd*2}')(64*gw,64*gw,2,True,group=1,e=0.5, act=self.act, fuse=self.fuse)
+        self.conv4 = conv(64*gw,128*gw,3,2,1, act=self.act, fuse=self.fuse)
+        self.c3_3 = eval(f'c3_rep{gd*3}')(128*gw,128*gw,3,True,group=1,e=0.5, act=self.act, fuse=self.fuse)
+        self.conv5 = conv(128*gw,256*gw,3,2,1, act=self.act, fuse=self.fuse)
+        self.c3_4 = eval(f'c3_rep{gd*1}')(256*gw,256*gw,1,True,group=1,e=0.5, act=self.act, fuse=self.fuse)
+        self.sppf = sppf(256*gw,256*gw,5, act=self.act, fuse=self.fuse)
+        self.conv6 = conv(256*gw,128*gw,1,1, act=self.act, fuse=self.fuse)
         self.upsample1 = resize()
         self.cat1  = cat(dim=1)
-        self.c3_5 = eval(f'c3_rep{gd*1}')(256*gw,128*gw,1,False,group=1,e=0.5, act=self.act)
-        self.conv7 = conv(128*gw,64*gw,1,1, act=self.act)
+        self.c3_5 = eval(f'c3_rep{gd*1}')(256*gw,128*gw,1,False,group=1,e=0.5, act=self.act, fuse=self.fuse)
+        self.conv7 = conv(128*gw,64*gw,1,1, act=self.act, fuse=self.fuse)
         self.upsample2 = resize()
         self.cat2  = cat(dim=1)
-        self.c3_6 = eval(f'c3_rep{gd*1}')(128*gw,64*gw,1,False,group=1,e=0.5, act=self.act)
-        self.conv8 = conv(64*gw,64*gw,3,2,1, act=self.act)
+        self.c3_6 = eval(f'c3_rep{gd*1}')(128*gw,64*gw,1,False,group=1,e=0.5, act=self.act, fuse=self.fuse)
+        self.conv8 = conv(64*gw,64*gw,3,2,1, act=self.act, fuse=self.fuse)
         self.cat3  = cat(dim=1)
-        self.c3_7 = eval(f'c3_rep{gd*1}')(128*gw,128*gw,1,False,group=1,e=0.5, act=self.act)
-        self.conv9 = conv(128*gw,128*gw,3,2,1, act=self.act)
+        self.c3_7 = eval(f'c3_rep{gd*1}')(128*gw,128*gw,1,False,group=1,e=0.5, act=self.act, fuse=self.fuse)
+        self.conv9 = conv(128*gw,128*gw,3,2,1, act=self.act, fuse=self.fuse)
         self.cat4  = cat(dim=1)
-        self.c3_8 = eval(f'c3_rep{gd*1}')(256*gw,256*gw,1,False,group=1,e=0.5, act=self.act)
+        self.c3_8 = eval(f'c3_rep{gd*1}')(256*gw,256*gw,1,False,group=1,e=0.5, act=self.act, fuse=self.fuse)
         anchors = [[10,13, 16,30, 33,23],[30,61, 62,45, 59,119],[116,90, 156,198, 373,326]]
         self.det  = detect(self.batch_size, nc=80, anchors=anchors,ch=[64*gw,128*gw,256*gw],inplace=True, mode=self.mode,ctx=self.ctx)
     def hybrid_forward(self, F, x):

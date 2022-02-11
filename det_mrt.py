@@ -8,8 +8,9 @@ from mxnet import nd
 from yolo import yolov5
 import cv2
 import mxnet as mx
-from utils import non_max_suppression, Annotator, scale_coords, Colors, str2bool
-
+from mxnet import gluon
+from utils import non_max_suppression, Annotator, scale_coords, Colors, str2bool, get_quantized_model, concat_out, make_squre
+from mrt import sim_quant_helper as sim
 
 def parse_opt():
     parser = argparse.ArgumentParser()
@@ -19,9 +20,9 @@ def parse_opt():
     parser.add_argument("--classes",     type=int,   default=80,        help="how many classes for the detection and classfication problem")
     parser.add_argument("--imgsz",       type=int,   default=640,       help="input image size")
     parser.add_argument("--dataset",     type=str,   default="./dataset/trial/images",   help="trial data for debug or training")
-    parser.add_argument("--model_dir",   type=str,   default="./weights/",      help="Model dir for save and load")
+    parser.add_argument("--model_dir",   type=str,   default="./qout",      help="Model dir for save and load")
     parser.add_argument("--model",       type=str,   default="yolov5s", help="model name")
-    parser.add_argument("--fuse",        type=str2bool,   default=True,    help="fuse conv and normal")
+    parser.add_argument("--silu",        type=str,   default="silu",    help="activation with silu or relu")
     opt = parser.parse_args()
     return opt
 
@@ -45,31 +46,11 @@ def main(opt):
 
     ctx = mx.cpu() if opt.cpu else mx.gpu(opt.gpu)
     print(ctx)
+    
+    qgraph, inputs_ext, oscales = get_quantized_model(opt.model_dir, opt.model, ctx)
+   
 
-    gw = {"n":1, "s":2, "m":3, "l":4, "x":5}
-    gd = {"n":1, "s":1, "m":2, "l":3, "x":4}
-    postfix = opt.model[-1]
-    model = yolov5(batch_size=opt.batch_size, mode="val", ctx=ctx, gd=gd[postfix], gw=gw[postfix], fuse=opt.fuse)
-    model.collect_params().initialize(init=mx.init.Xavier(), ctx=ctx)
-    #model.hybridize()
-
-    try:
-        EPOCH = []
-        for f in os.listdir(opt.model_dir):
-            if f.endswith("params") and opt.model in f:
-                name_epoch = f.strip().split(".")[0].split("-")
-                if len(name_epoch) == 2 and name_epoch[0] == opt.model:
-                    EPOCH.append(name_epoch[1])
-        tmp = [int(_) for _ in EPOCH]
-        ind = tmp.index(max(tmp))
-        params_file = os.path.join(opt.model_dir, opt.model+"-"+EPOCH[ind]+".params")
-        model.collect_params().load(params_file,ignore_extra=False)
-        
-        print(f'load weight {params_file} successfully')
-    except:
-        print("failed to load weight")
-
-    dirs = os.path.join("./result/", opt.model) 
+    dirs = os.path.join("./result/", opt.model)
     if not os.path.exists(dirs):
         os.makedirs(dirs)
     else:
@@ -82,26 +63,25 @@ def main(opt):
             continue
         print(f)
         file_name = os.path.join(opt.dataset, f)
-        img = cv2.imread(file_name)
-        
-        height, width = img.shape[0:2]
-        scale = min(opt.imgsz/height, opt.imgsz/width)
-        h0, w0 = height*scale, width*scale
-        img0 = cv2.resize(img, (round(w0/32.)*32, round(h0/32.)*32))
-        img0s = img0.copy()
-        img = img0.astype("float32")/255.
-        
+        _,_,_,_,img = make_squre(cv2.imread(file_name))
+        img = cv2.resize(img, (opt.imgsz, opt.imgsz))
+        img0s = img.copy()
+        img = img.astype("float32")/255.
+
         img = nd.array(img.transpose((2,0,1))[None], ctx = ctx)
-        pred = model(img).asnumpy()
-         
-        pred = non_max_suppression(pred, conf_thres, iou_thres, classes, agnostic_nms, max_det=max_det)
+        img = sim.load_real_data(img, 'data', inputs_ext)
+        out = qgraph(img)
+        out = [t/oscales[i] for i,t in enumerate(out)]
+        out = concat_out(*out).asnumpy()
+
+        out = non_max_suppression(out, conf_thres, iou_thres, labels=[], multi_label=True, agnostic=False)
         annotator = Annotator(img0s, line_width=1, example=str(names))
         
-        det = pred[0]
-        if det.shape[0] > 0:
-            det[:, :4] = scale_coords(img.shape[2:], det[:, :4], img0s.shape).round()
-                
-        for *xyxy, conf, cls in reversed(det):
+        pred = out[0]
+        if pred.shape[0] > 0:
+            pred[:, :4] = scale_coords(img.shape[2:], pred[:, :4], img0s.shape).round()
+        
+        for *xyxy, conf, cls in reversed(pred):
             c  =int(cls)
             label = f'{names[c]} {conf:.2f}'
             annotator.box_label(xyxy, label, color=Colors()(c, True))

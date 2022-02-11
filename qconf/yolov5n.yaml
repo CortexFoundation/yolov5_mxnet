@@ -1,0 +1,46 @@
+COMMON:
+  BATCH: 1
+  DEVICE_TYPE: cpu
+  DEVICE_IDS: [0]
+  MODEL_DIR: ./qout
+  MODEL_NAME: yolov5n
+  PASS_NAME: all
+  RUN_EVALUATE: False
+  START_AFTER: initial
+  VERBOSITY: info
+PREPARE:
+  DEVICE_TYPE: None
+  DEVICE_IDS: None
+  INPUT_SHAPE: [-1, 3, 640, 640]
+  SPLIT_KEYS: []
+CALIBRATE:
+  BATCH: 1
+  NUM_CALIB: 32
+  DATASET_DIR: ./dataset
+  DATASET_NAME: yolov5_dataset
+  DEVICE_TYPE: cpu
+  DEVICE_IDS: [0]
+QUANTIZE:
+  ATTRIBUTE_DEPS: []
+  DEVICE_IDS: [0]
+  DEVICE_TYPE: cpu
+  INPUT_PRECISION: None
+  OSCALE_MAPS: []
+  OUTPUT_PRECISION: None
+  RESTORE_NAMES: []
+  SHIFT_BITS: None
+  SOFTMAX_LAMBD: None
+  THRESHOLDS: []
+  # OUTPUT_PRECISION: 30
+EVALUATE:
+  # in this model, the BATCH should be set as 16
+  BATCH: 1
+  DEVICE_TYPE: cpu
+  DEVICE_IDS: [0]
+  ITER_NUM: 2
+COMPILE:
+  # in this model, the BATCH should be set as 16
+  BATCH: 1
+  DEVICE_TYPE: None
+  DEVICE_IDS: None
+  DUMP_DIR: ./qout

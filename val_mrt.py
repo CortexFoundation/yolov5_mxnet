@@ -4,12 +4,12 @@
 import argparse
 import os
 import numpy as np
-from mxnet import nd
-from yolo import yolov5
 import cv2
-from utils import str2bool
+from utils import get_quantized_model, str2bool, concat_out, make_squre
 import mxnet as mx
-from utils import non_max_suppression, scale_coords, xywh2xyxy, process_batch, ap_per_class, make_squre
+from mxnet import nd, gluon
+from utils import non_max_suppression, scale_coords, xywh2xyxy, process_batch, ap_per_class
+from mrt import sim_quant_helper as sim
 
 def parse_opt():
     parser = argparse.ArgumentParser()
@@ -19,9 +19,9 @@ def parse_opt():
     parser.add_argument("--classes",     type=int,     default=80,        help="how many classes for the detection and classfication problem")
     parser.add_argument("--imgsz",       type=int,     default=640,       help="input image size")
     parser.add_argument("--dataset",     type=str,     default="./dataset/trial/images",   help="trial data for debug or training")
-    parser.add_argument("--model_dir",   type=str,     default="./weights/",      help="Model dir for save and load")
+    parser.add_argument("--model_dir",   type=str,     default="./qout",  help="Model dir for save and load")
     parser.add_argument("--model",       type=str,     default="yolov5s", help="model name")
-    parser.add_argument("--fuse",        type=str2bool,default=True,    help="fuse conv and normal")
+    parser.add_argument("--silu",        type=str,     default="silu",    help="activation with silu or relu")
     opt = parser.parse_args()
     return opt
 
@@ -43,35 +43,14 @@ def main(opt):
 
     ctx = mx.cpu() if opt.cpu else mx.gpu(opt.gpu)
     print(ctx)
-
-    gw = {"n":1, "s":2, "m":3, "l":4, "x":5}
-    gd = {"n":1, "s":1, "m":2, "l":3, "x":4}
-    postfix = opt.model[-1]
-    model = yolov5(batch_size=opt.batch_size, mode="val", ctx=ctx, gd=gd[postfix], gw=gw[postfix], fuse=opt.fuse)
-    model.collect_params().initialize(init=mx.init.Xavier(), ctx=ctx)
-    #model.hybridize()
-
-    try:
-        EPOCH = []
-        for f in os.listdir(opt.model_dir):
-            if f.endswith("params") and opt.model in f:
-                name_epoch = f.strip().split(".")[0].split("-")
-                if len(name_epoch) == 2 and name_epoch[0] == opt.model:
-                    EPOCH.append(name_epoch[1])
-        tmp = [int(_) for _ in EPOCH]
-        ind = tmp.index(max(tmp))
-        params_file = os.path.join(opt.model_dir, opt.model+"-"+EPOCH[ind]+".params")
-        model.collect_params().load(params_file,ignore_extra=False)
-        
-        print(f'load weight {params_file} successfully')
-    except:
-        print("failed to load weight")
-
+    
     iouv = np.linspace(0.5, 0.95, 10)
     niou = iouv.shape[0]
     seen = 0
     jdict, stats, ap, ap_class = [], [], [], []
 
+    qgraph, inputs_ext, oscales = get_quantized_model(opt.model_dir, opt.model, ctx)
+    
     for f in os.listdir(opt.dataset):
         _, ext = os.path.splitext(f)
         if ext != ".jpg" and ext != ".JPG" and ext != ".png" and ext != ".PNG":
@@ -96,12 +75,14 @@ def main(opt):
 
         img = cv2.resize(img, (opt.imgsz, opt.imgsz))
         labels[:,1:] = labels[:,1:]*opt.imgsz
-
         img = img.astype("float32")/255.
-        img = nd.array(img.transpose((2,0,1))[None], ctx = ctx)
 
-        nl = labels.shape[0]
-        out = model(img).asnumpy()
+        img = nd.array(img.transpose((2,0,1))[None], ctx = ctx)
+        img = sim.load_real_data(img, 'data', inputs_ext)
+        out = qgraph(img)
+        out = [t/oscales[i] for i,t in enumerate(out)]
+        out = concat_out(*out).asnumpy()
+        
         out = non_max_suppression(out, conf_thres, iou_thres, labels=[], multi_label=True, agnostic=False)
         pred = out[0]
 
@@ -136,7 +117,7 @@ def main(opt):
         nt = np.zeros(1)
 
     s  = f'{opt.dataset}: #imges={seen}, #objects={nt.sum()}, mp={mp*100:02.2f}%, mr={mr*100:02.2f}%, map50={map50*100:02.2f}%, map={map*100:02.2f}%'
-    fp = open(os.path.join("./result", opt.model+"_eval_float.txt"),"w")
+    fp = open(os.path.join("./result", opt.model+"_eval_quant.txt"),"w")
     fp.write(s)
     fp.close()
 

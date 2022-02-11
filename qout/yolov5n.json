@@ -1,0 +1,3758 @@
+{
+  "nodes": [
+    {
+      "op": "null", 
+      "name": "data", 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv1_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(16, 0, 6, 6)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv1_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(16,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv1_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(6, 6)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "16", 
+        "num_group": "1", 
+        "pad": "(2, 2)", 
+        "stride": "(2, 2)"
+      }, 
+      "inputs": [[0, 0, 0], [1, 0, 0], [2, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu0_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[3, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu0__mul0", 
+      "inputs": [[3, 0, 0], [4, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv3_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv3_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv3_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "32", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(2, 2)"
+      }, 
+      "inputs": [[5, 0, 0], [6, 0, 0], [7, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu1_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[8, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu1__mul0", 
+      "inputs": [[8, 0, 0], [9, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv5_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(16, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv5_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(16,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv5_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "16", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[10, 0, 0], [11, 0, 0], [12, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu2_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[13, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu2__mul0", 
+      "inputs": [[13, 0, 0], [14, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv11_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(16, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv11_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(16,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv11_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "16", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[15, 0, 0], [16, 0, 0], [17, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu5_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[18, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu5__mul0", 
+      "inputs": [[18, 0, 0], [19, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv13_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(16, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv13_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(16,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv13_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "16", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[20, 0, 0], [21, 0, 0], [22, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu6_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[23, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu6__mul0", 
+      "inputs": [[23, 0, 0], [24, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_add", 
+      "name": "bottle0__plus0", 
+      "inputs": [[15, 0, 0], [25, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv7_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(16, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv7_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(16,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv7_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "16", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[10, 0, 0], [27, 0, 0], [28, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu3_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[29, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu3__mul0", 
+      "inputs": [[29, 0, 0], [30, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "c3_rep10_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "2"
+      }, 
+      "inputs": [[26, 0, 0], [31, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv9_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv9_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv9_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "32", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[32, 0, 0], [33, 0, 0], [34, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu4_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[35, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu4__mul0", 
+      "inputs": [[35, 0, 0], [36, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv15_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv15_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv15_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(2, 2)"
+      }, 
+      "inputs": [[37, 0, 0], [38, 0, 0], [39, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu7_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[40, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu7__mul0", 
+      "inputs": [[40, 0, 0], [41, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv17_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv17_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv17_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "32", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[42, 0, 0], [43, 0, 0], [44, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu8_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[45, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu8__mul0", 
+      "inputs": [[45, 0, 0], [46, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv23_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv23_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv23_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "32", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[47, 0, 0], [48, 0, 0], [49, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu11_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[50, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu11__mul0", 
+      "inputs": [[50, 0, 0], [51, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv25_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv25_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv25_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "32", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[52, 0, 0], [53, 0, 0], [54, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu12_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[55, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu12__mul0", 
+      "inputs": [[55, 0, 0], [56, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_add", 
+      "name": "bottle1__plus0", 
+      "inputs": [[47, 0, 0], [57, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv27_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv27_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv27_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "32", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[58, 0, 0], [59, 0, 0], [60, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu13_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[61, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu13__mul0", 
+      "inputs": [[61, 0, 0], [62, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv29_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv29_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv29_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "32", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[63, 0, 0], [64, 0, 0], [65, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu14_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[66, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu14__mul0", 
+      "inputs": [[66, 0, 0], [67, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_add", 
+      "name": "bottle2__plus0", 
+      "inputs": [[58, 0, 0], [68, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv19_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv19_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv19_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "32", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[42, 0, 0], [70, 0, 0], [71, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu9_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[72, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu9__mul0", 
+      "inputs": [[72, 0, 0], [73, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "c3_rep20_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "2"
+      }, 
+      "inputs": [[69, 0, 0], [74, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv21_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv21_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv21_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[75, 0, 0], [76, 0, 0], [77, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu10_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[78, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu10__mul0", 
+      "inputs": [[78, 0, 0], [79, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv31_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv31_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv31_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(2, 2)"
+      }, 
+      "inputs": [[80, 0, 0], [81, 0, 0], [82, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu15_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[83, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu15__mul0", 
+      "inputs": [[83, 0, 0], [84, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv33_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv33_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv33_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[85, 0, 0], [86, 0, 0], [87, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu16_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[88, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu16__mul0", 
+      "inputs": [[88, 0, 0], [89, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv39_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv39_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv39_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[90, 0, 0], [91, 0, 0], [92, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu19_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[93, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu19__mul0", 
+      "inputs": [[93, 0, 0], [94, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv41_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv41_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv41_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[95, 0, 0], [96, 0, 0], [97, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu20_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[98, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu20__mul0", 
+      "inputs": [[98, 0, 0], [99, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_add", 
+      "name": "bottle3__plus0", 
+      "inputs": [[90, 0, 0], [100, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv43_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv43_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv43_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[101, 0, 0], [102, 0, 0], [103, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu21_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[104, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu21__mul0", 
+      "inputs": [[104, 0, 0], [105, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv45_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv45_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv45_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[106, 0, 0], [107, 0, 0], [108, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu22_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[109, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu22__mul0", 
+      "inputs": [[109, 0, 0], [110, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_add", 
+      "name": "bottle4__plus0", 
+      "inputs": [[101, 0, 0], [111, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv47_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv47_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv47_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[112, 0, 0], [113, 0, 0], [114, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu23_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[115, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu23__mul0", 
+      "inputs": [[115, 0, 0], [116, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv49_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv49_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv49_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[117, 0, 0], [118, 0, 0], [119, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu24_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[120, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu24__mul0", 
+      "inputs": [[120, 0, 0], [121, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_add", 
+      "name": "bottle5__plus0", 
+      "inputs": [[112, 0, 0], [122, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv35_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv35_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv35_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[85, 0, 0], [124, 0, 0], [125, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu17_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[126, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu17__mul0", 
+      "inputs": [[126, 0, 0], [127, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "c3_rep30_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "2"
+      }, 
+      "inputs": [[123, 0, 0], [128, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv37_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv37_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv37_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[129, 0, 0], [130, 0, 0], [131, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu18_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[132, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu18__mul0", 
+      "inputs": [[132, 0, 0], [133, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv51_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(256, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv51_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(256,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv51_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "256", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(2, 2)"
+      }, 
+      "inputs": [[134, 0, 0], [135, 0, 0], [136, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu25_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[137, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu25__mul0", 
+      "inputs": [[137, 0, 0], [138, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv53_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv53_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv53_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[139, 0, 0], [140, 0, 0], [141, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu26_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[142, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu26__mul0", 
+      "inputs": [[142, 0, 0], [143, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv59_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv59_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv59_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[144, 0, 0], [145, 0, 0], [146, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu29_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[147, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu29__mul0", 
+      "inputs": [[147, 0, 0], [148, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv61_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv61_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv61_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[149, 0, 0], [150, 0, 0], [151, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu30_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[152, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu30__mul0", 
+      "inputs": [[152, 0, 0], [153, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_add", 
+      "name": "bottle6__plus0", 
+      "inputs": [[144, 0, 0], [154, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv55_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv55_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv55_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[139, 0, 0], [156, 0, 0], [157, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu27_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[158, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu27__mul0", 
+      "inputs": [[158, 0, 0], [159, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "c3_rep11_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "2"
+      }, 
+      "inputs": [[155, 0, 0], [160, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv57_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(256, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv57_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(256,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv57_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "256", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[161, 0, 0], [162, 0, 0], [163, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu28_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[164, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu28__mul0", 
+      "inputs": [[164, 0, 0], [165, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv63_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv63_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv63_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[166, 0, 0], [167, 0, 0], [168, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu31_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[169, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu31__mul0", 
+      "inputs": [[169, 0, 0], [170, 0, 0]]
+    }, 
+    {
+      "op": "Pooling", 
+      "name": "pool0_fwd", 
+      "attrs": {
+        "global_pool": "False", 
+        "kernel": "(5, 5)", 
+        "layout": "NCHW", 
+        "pad": "(2, 2)", 
+        "pool_type": "max", 
+        "pooling_convention": "valid", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[171, 0, 0]]
+    }, 
+    {
+      "op": "Pooling", 
+      "name": "pool0_fwd", 
+      "attrs": {
+        "global_pool": "False", 
+        "kernel": "(5, 5)", 
+        "layout": "NCHW", 
+        "pad": "(2, 2)", 
+        "pool_type": "max", 
+        "pooling_convention": "valid", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[172, 0, 0]]
+    }, 
+    {
+      "op": "Pooling", 
+      "name": "pool0_fwd", 
+      "attrs": {
+        "global_pool": "False", 
+        "kernel": "(5, 5)", 
+        "layout": "NCHW", 
+        "pad": "(2, 2)", 
+        "pool_type": "max", 
+        "pooling_convention": "valid", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[173, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "sppf0_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "4"
+      }, 
+      "inputs": [[171, 0, 0], [172, 0, 0], [173, 0, 0], [174, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv65_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(256, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv65_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(256,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv65_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "256", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[175, 0, 0], [176, 0, 0], [177, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu32_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[178, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu32__mul0", 
+      "inputs": [[178, 0, 0], [179, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv67_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv67_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv67_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[180, 0, 0], [181, 0, 0], [182, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu33_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[183, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu33__mul0", 
+      "inputs": [[183, 0, 0], [184, 0, 0]]
+    }, 
+    {
+      "op": "repeat", 
+      "name": "resize0_repeat0", 
+      "attrs": {
+        "axis": "2", 
+        "repeats": "2"
+      }, 
+      "inputs": [[185, 0, 0]]
+    }, 
+    {
+      "op": "repeat", 
+      "name": "resize0_repeat1", 
+      "attrs": {
+        "axis": "3", 
+        "repeats": "2"
+      }, 
+      "inputs": [[186, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "cat0_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "2"
+      }, 
+      "inputs": [[187, 0, 0], [134, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv69_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv69_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv69_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[188, 0, 0], [189, 0, 0], [190, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu34_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[191, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu34__mul0", 
+      "inputs": [[191, 0, 0], [192, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv75_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv75_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv75_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[193, 0, 0], [194, 0, 0], [195, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu37_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[196, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu37__mul0", 
+      "inputs": [[196, 0, 0], [197, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv77_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv77_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv77_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[198, 0, 0], [199, 0, 0], [200, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu38_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[201, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu38__mul0", 
+      "inputs": [[201, 0, 0], [202, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv71_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv71_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv71_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[188, 0, 0], [204, 0, 0], [205, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu35_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[206, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu35__mul0", 
+      "inputs": [[206, 0, 0], [207, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "c3_rep12_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "2"
+      }, 
+      "inputs": [[203, 0, 0], [208, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv73_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv73_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv73_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[209, 0, 0], [210, 0, 0], [211, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu36_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[212, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu36__mul0", 
+      "inputs": [[212, 0, 0], [213, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv79_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv79_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv79_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[214, 0, 0], [215, 0, 0], [216, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu39_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[217, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu39__mul0", 
+      "inputs": [[217, 0, 0], [218, 0, 0]]
+    }, 
+    {
+      "op": "repeat", 
+      "name": "resize1_repeat0", 
+      "attrs": {
+        "axis": "2", 
+        "repeats": "2"
+      }, 
+      "inputs": [[219, 0, 0]]
+    }, 
+    {
+      "op": "repeat", 
+      "name": "resize1_repeat1", 
+      "attrs": {
+        "axis": "3", 
+        "repeats": "2"
+      }, 
+      "inputs": [[220, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "cat1_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "2"
+      }, 
+      "inputs": [[221, 0, 0], [80, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv81_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv81_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv81_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "32", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[222, 0, 0], [223, 0, 0], [224, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu40_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[225, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu40__mul0", 
+      "inputs": [[225, 0, 0], [226, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv87_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv87_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv87_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "32", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[227, 0, 0], [228, 0, 0], [229, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu43_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[230, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu43__mul0", 
+      "inputs": [[230, 0, 0], [231, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv89_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv89_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv89_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "32", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[232, 0, 0], [233, 0, 0], [234, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu44_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[235, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu44__mul0", 
+      "inputs": [[235, 0, 0], [236, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv83_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv83_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(32,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv83_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "32", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[222, 0, 0], [238, 0, 0], [239, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu41_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[240, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu41__mul0", 
+      "inputs": [[240, 0, 0], [241, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "c3_rep13_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "2"
+      }, 
+      "inputs": [[237, 0, 0], [242, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv85_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv85_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv85_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[243, 0, 0], [244, 0, 0], [245, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu42_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[246, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu42__mul0", 
+      "inputs": [[246, 0, 0], [247, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv114_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(255, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv114_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(255,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv114_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "255", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[248, 0, 0], [249, 0, 0], [250, 0, 0]]
+    }, 
+    {
+      "op": "Reshape", 
+      "name": "detect0_reshape0", 
+      "attrs": {"shape": "(1, 3, 85, 80, 80)"}, 
+      "inputs": [[251, 0, 0]]
+    }, 
+    {
+      "op": "transpose", 
+      "name": "detect0_transpose0", 
+      "attrs": {"axes": "(0, 1, 3, 4, 2)"}, 
+      "inputs": [[252, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv91_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv91_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv91_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(2, 2)"
+      }, 
+      "inputs": [[248, 0, 0], [254, 0, 0], [255, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu45_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[256, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu45__mul0", 
+      "inputs": [[256, 0, 0], [257, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "cat2_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "2"
+      }, 
+      "inputs": [[258, 0, 0], [219, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv93_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv93_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv93_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[259, 0, 0], [260, 0, 0], [261, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu46_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[262, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu46__mul0", 
+      "inputs": [[262, 0, 0], [263, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv99_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv99_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv99_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[264, 0, 0], [265, 0, 0], [266, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu49_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[267, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu49__mul0", 
+      "inputs": [[267, 0, 0], [268, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv101_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv101_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv101_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[269, 0, 0], [270, 0, 0], [271, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu50_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[272, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu50__mul0", 
+      "inputs": [[272, 0, 0], [273, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv95_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv95_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(64,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv95_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "64", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[259, 0, 0], [275, 0, 0], [276, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu47_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[277, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu47__mul0", 
+      "inputs": [[277, 0, 0], [278, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "c3_rep14_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "2"
+      }, 
+      "inputs": [[274, 0, 0], [279, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv97_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv97_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv97_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[280, 0, 0], [281, 0, 0], [282, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu48_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[283, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu48__mul0", 
+      "inputs": [[283, 0, 0], [284, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv115_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(255, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv115_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(255,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv115_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "255", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[285, 0, 0], [286, 0, 0], [287, 0, 0]]
+    }, 
+    {
+      "op": "Reshape", 
+      "name": "detect0_reshape1", 
+      "attrs": {"shape": "(1, 3, 85, 40, 40)"}, 
+      "inputs": [[288, 0, 0]]
+    }, 
+    {
+      "op": "transpose", 
+      "name": "detect0_transpose1", 
+      "attrs": {"axes": "(0, 1, 3, 4, 2)"}, 
+      "inputs": [[289, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv103_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv103_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv103_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(2, 2)"
+      }, 
+      "inputs": [[285, 0, 0], [291, 0, 0], [292, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu51_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[293, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu51__mul0", 
+      "inputs": [[293, 0, 0], [294, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "cat3_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "2"
+      }, 
+      "inputs": [[295, 0, 0], [185, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv105_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv105_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv105_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[296, 0, 0], [297, 0, 0], [298, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu52_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[299, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu52__mul0", 
+      "inputs": [[299, 0, 0], [300, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv111_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv111_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv111_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[301, 0, 0], [302, 0, 0], [303, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu55_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[304, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu55__mul0", 
+      "inputs": [[304, 0, 0], [305, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv113_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 3, 3)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv113_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv113_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(3, 3)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(1, 1)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[306, 0, 0], [307, 0, 0], [308, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu56_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[309, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu56__mul0", 
+      "inputs": [[309, 0, 0], [310, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv107_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv107_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(128,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv107_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "128", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[296, 0, 0], [312, 0, 0], [313, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu53_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[314, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu53__mul0", 
+      "inputs": [[314, 0, 0], [315, 0, 0]]
+    }, 
+    {
+      "op": "Concat", 
+      "name": "c3_rep15_concat0", 
+      "attrs": {
+        "dim": "1", 
+        "num_args": "2"
+      }, 
+      "inputs": [[311, 0, 0], [316, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv109_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(256, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv109_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(256,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv109_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "256", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[317, 0, 0], [318, 0, 0], [319, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "silu54_sigmoid0_fwd", 
+      "attrs": {"act_type": "sigmoid"}, 
+      "inputs": [[320, 0, 0]]
+    }, 
+    {
+      "op": "elemwise_mul", 
+      "name": "silu54__mul0", 
+      "inputs": [[320, 0, 0], [321, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "conv116_weight", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(255, 0, 1, 1)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "conv116_bias", 
+      "attrs": {
+        "__dtype__": "0", 
+        "__init__": "zeros", 
+        "__lr_mult__": "1.0", 
+        "__shape__": "(255,)", 
+        "__storage_type__": "0", 
+        "__wd_mult__": "1.0"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "conv116_fwd", 
+      "attrs": {
+        "dilate": "(1, 1)", 
+        "kernel": "(1, 1)", 
+        "layout": "NCHW", 
+        "no_bias": "False", 
+        "num_filter": "255", 
+        "num_group": "1", 
+        "pad": "(0, 0)", 
+        "stride": "(1, 1)"
+      }, 
+      "inputs": [[322, 0, 0], [323, 0, 0], [324, 0, 0]]
+    }, 
+    {
+      "op": "Reshape", 
+      "name": "detect0_reshape2", 
+      "attrs": {"shape": "(1, 3, 85, 20, 20)"}, 
+      "inputs": [[325, 0, 0]]
+    }, 
+    {
+      "op": "transpose", 
+      "name": "detect0_transpose2", 
+      "attrs": {"axes": "(0, 1, 3, 4, 2)"}, 
+      "inputs": [[326, 0, 0]]
+    }
+  ], 
+  "arg_nodes": [
+    0, 
+    1, 
+    2, 
+    6, 
+    7, 
+    11, 
+    12, 
+    16, 
+    17, 
+    21, 
+    22, 
+    27, 
+    28, 
+    33, 
+    34, 
+    38, 
+    39, 
+    43, 
+    44, 
+    48, 
+    49, 
+    53, 
+    54, 
+    59, 
+    60, 
+    64, 
+    65, 
+    70, 
+    71, 
+    76, 
+    77, 
+    81, 
+    82, 
+    86, 
+    87, 
+    91, 
+    92, 
+    96, 
+    97, 
+    102, 
+    103, 
+    107, 
+    108, 
+    113, 
+    114, 
+    118, 
+    119, 
+    124, 
+    125, 
+    130, 
+    131, 
+    135, 
+    136, 
+    140, 
+    141, 
+    145, 
+    146, 
+    150, 
+    151, 
+    156, 
+    157, 
+    162, 
+    163, 
+    167, 
+    168, 
+    176, 
+    177, 
+    181, 
+    182, 
+    189, 
+    190, 
+    194, 
+    195, 
+    199, 
+    200, 
+    204, 
+    205, 
+    210, 
+    211, 
+    215, 
+    216, 
+    223, 
+    224, 
+    228, 
+    229, 
+    233, 
+    234, 
+    238, 
+    239, 
+    244, 
+    245, 
+    249, 
+    250, 
+    254, 
+    255, 
+    260, 
+    261, 
+    265, 
+    266, 
+    270, 
+    271, 
+    275, 
+    276, 
+    281, 
+    282, 
+    286, 
+    287, 
+    291, 
+    292, 
+    297, 
+    298, 
+    302, 
+    303, 
+    307, 
+    308, 
+    312, 
+    313, 
+    318, 
+    319, 
+    323, 
+    324
+  ], 
+  "node_row_ptr": [
+    0, 
+    1, 
+    2, 
+    3, 
+    4, 
+    5, 
+    6, 
+    7, 
+    8, 
+    9, 
+    10, 
+    11, 
+    12, 
+    13, 
+    14, 
+    15, 
+    16, 
+    17, 
+    18, 
+    19, 
+    20, 
+    21, 
+    22, 
+    23, 
+    24, 
+    25, 
+    26, 
+    27, 
+    28, 
+    29, 
+    30, 
+    31, 
+    32, 
+    33, 
+    34, 
+    35, 
+    36, 
+    37, 
+    38, 
+    39, 
+    40, 
+    41, 
+    42, 
+    43, 
+    44, 
+    45, 
+    46, 
+    47, 
+    48, 
+    49, 
+    50, 
+    51, 
+    52, 
+    53, 
+    54, 
+    55, 
+    56, 
+    57, 
+    58, 
+    59, 
+    60, 
+    61, 
+    62, 
+    63, 
+    64, 
+    65, 
+    66, 
+    67, 
+    68, 
+    69, 
+    70, 
+    71, 
+    72, 
+    73, 
+    74, 
+    75, 
+    76, 
+    77, 
+    78, 
+    79, 
+    80, 
+    81, 
+    82, 
+    83, 
+    84, 
+    85, 
+    86, 
+    87, 
+    88, 
+    89, 
+    90, 
+    91, 
+    92, 
+    93, 
+    94, 
+    95, 
+    96, 
+    97, 
+    98, 
+    99, 
+    100, 
+    101, 
+    102, 
+    103, 
+    104, 
+    105, 
+    106, 
+    107, 
+    108, 
+    109, 
+    110, 
+    111, 
+    112, 
+    113, 
+    114, 
+    115, 
+    116, 
+    117, 
+    118, 
+    119, 
+    120, 
+    121, 
+    122, 
+    123, 
+    124, 
+    125, 
+    126, 
+    127, 
+    128, 
+    129, 
+    130, 
+    131, 
+    132, 
+    133, 
+    134, 
+    135, 
+    136, 
+    137, 
+    138, 
+    139, 
+    140, 
+    141, 
+    142, 
+    143, 
+    144, 
+    145, 
+    146, 
+    147, 
+    148, 
+    149, 
+    150, 
+    151, 
+    152, 
+    153, 
+    154, 
+    155, 
+    156, 
+    157, 
+    158, 
+    159, 
+    160, 
+    161, 
+    162, 
+    163, 
+    164, 
+    165, 
+    166, 
+    167, 
+    168, 
+    169, 
+    170, 
+    171, 
+    172, 
+    174, 
+    176, 
+    178, 
+    179, 
+    180, 
+    181, 
+    182, 
+    183, 
+    184, 
+    185, 
+    186, 
+    187, 
+    188, 
+    189, 
+    190, 
+    191, 
+    192, 
+    193, 
+    194, 
+    195, 
+    196, 
+    197, 
+    198, 
+    199, 
+    200, 
+    201, 
+    202, 
+    203, 
+    204, 
+    205, 
+    206, 
+    207, 
+    208, 
+    209, 
+    210, 
+    211, 
+    212, 
+    213, 
+    214, 
+    215, 
+    216, 
+    217, 
+    218, 
+    219, 
+    220, 
+    221, 
+    222, 
+    223, 
+    224, 
+    225, 
+    226, 
+    227, 
+    228, 
+    229, 
+    230, 
+    231, 
+    232, 
+    233, 
+    234, 
+    235, 
+    236, 
+    237, 
+    238, 
+    239, 
+    240, 
+    241, 
+    242, 
+    243, 
+    244, 
+    245, 
+    246, 
+    247, 
+    248, 
+    249, 
+    250, 
+    251, 
+    252, 
+    253, 
+    254, 
+    255, 
+    256, 
+    257, 
+    258, 
+    259, 
+    260, 
+    261, 
+    262, 
+    263, 
+    264, 
+    265, 
+    266, 
+    267, 
+    268, 
+    269, 
+    270, 
+    271, 
+    272, 
+    273, 
+    274, 
+    275, 
+    276, 
+    277, 
+    278, 
+    279, 
+    280, 
+    281, 
+    282, 
+    283, 
+    284, 
+    285, 
+    286, 
+    287, 
+    288, 
+    289, 
+    290, 
+    291, 
+    292, 
+    293, 
+    294, 
+    295, 
+    296, 
+    297, 
+    298, 
+    299, 
+    300, 
+    301, 
+    302, 
+    303, 
+    304, 
+    305, 
+    306, 
+    307, 
+    308, 
+    309, 
+    310, 
+    311, 
+    312, 
+    313, 
+    314, 
+    315, 
+    316, 
+    317, 
+    318, 
+    319, 
+    320, 
+    321, 
+    322, 
+    323, 
+    324, 
+    325, 
+    326, 
+    327, 
+    328, 
+    329, 
+    330, 
+    331
+  ], 
+  "heads": [[253, 0, 0], [290, 0, 0], [327, 0, 0]], 
+  "attrs": {"mxnet_version": ["int", 10800]}
+}

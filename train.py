@@ -14,20 +14,20 @@ from mxnet import autograd
 from loss import build_targets
 import logging
 import cv2
-
+from utils import str2bool
 
 def parse_opt():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--cpu",         type=bool,  default=False,     help="whether or not using cpu for training")
+    parser.add_argument("--cpu",         type=str2bool,  default=False,     help="whether or not using cpu for training")
     parser.add_argument("--gpu",         type=int,   default=2,         help="which gpu used for training")
-    parser.add_argument("--batch_size",  type=int,   default=16,        help="batch size")
+    parser.add_argument("--batch_size",  type=int,   default=4,        help="batch size")
     parser.add_argument("--imgsz",       type=int,   default=640,       help="input image size")
     parser.add_argument("--lr",          type=float, default=0.001,      help="learning rate")
     parser.add_argument("--classes",     type=int,   default=80,        help="how many classes for the detection and classfication problem")
     parser.add_argument("--dataset",     type=str,   default="./dataset/trial",   help="trial data for debug or training")
-    parser.add_argument("--model_dir",   type=str,   default="./",      help="Model dir for save and load")
-    parser.add_argument("--model",       type=str,   default="yolov5s", help="model name")
-    parser.add_argument("--silu",        type=str,   default="silu",    help="activation with silu or relu")
+    parser.add_argument("--model_dir",   type=str,   default="./weights",      help="Model dir for save and load")
+    parser.add_argument("--model",       type=str,   default="yolov5x", help="model name")
+    parser.add_argument("--fuse",        type=str2bool,   default=True,    help="fuse conv and normal")
     parser.add_argument("--step",        type=list,  default=[300000, 600000], help="period for lr update when training")
     opt = parser.parse_args()
     return opt
@@ -64,7 +64,7 @@ def main(opt):
     gw = {"n":1, "s":2, "m":3, "l":4, "x":5}
     gd = {"n":1, "s":1, "m":2, "l":3, "x":4}
     postfix = args.model[-1]
-    model = yolov5(batch_size=args.batch_size, mode="train", ctx=ctx, gd=gd[postfix], gw=gw[postfix])
+    model = yolov5(batch_size=args.batch_size, mode="train", ctx=ctx, gd=gd[postfix], gw=gw[postfix], fuse=args.fuse)
 
     model.collect_params().initialize(init=mx.init.Xavier(), ctx=ctx)
     model.hybridize()
@@ -72,14 +72,14 @@ def main(opt):
     try:
         NAME = []
         EPOCH = []
-        for f in os.listdir(os.path.join("./weights",args.model_dir)):
+        for f in os.listdir(args.model_dir):
             if f.endswith("params"):
                 name_epoch = f.strip().split(".")[0].split("-")
                 if len(name_epoch) == 2 and name_epoch[0] == args.model:
                     EPOCH.append(name_epoch[1])
         tmp = [int(_) for _ in EPOCH]
         ind = tmp.index(max(tmp))
-        params_file = os.path.join("./weights", args.model_dir, args.model+"-"+EPOCH[ind]+".params")
+        params_file = os.path.join(args.model_dir, args.model+"-"+EPOCH[ind]+".params")
         model.collect_params().load(params_file,ignore_extra=False)
         print("load weight successfully")
     except:
