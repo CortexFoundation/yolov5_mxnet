@@ -1,0 +1,1 @@
+dataset/val2007/images/: #imges=5000, #objects=36335, mp=64.33%, mr=48.15%, map50=50.33%, map=31.98%
