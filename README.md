@@ -41,21 +41,40 @@ and compile
 
 Please refer to https://github.com/CortexFoundation/cvm-runtime/blob/master/docs/cvm/install.md for details.
 
+After compiling and installation stage, one needs to configure the environment variable as following for example.
+    export CVM_HOME=$HOME/cvm-runtime
+    export PYTHONPATH=$CVM_HOME/python:${PYTHONPATH}
+    export MRT_HOME=$CVM_HOME/python/mrt
+    export PYTHONPATH=$MRT_HOME:${PYTHONPATH}
+
 #### MRT
 
 MRT, short for Model Representation Tool, aims to convert floating model into a deterministic and non-data-overflow network. MRT links the off-chain developer community to the on-chain ecosystem, from Off-chain deep learning to MRT transformations, and then uploading to Cortex Blockchain for on-chain deterministic inference.
 
 There is a detailed example https://github.com/CortexFoundation/cvm-runtime/blob/dev-example/docs/mrt/example.md for MRT usage. After one got a trained model,
 
-    cp path-to-model-params/yolov5x-0010.params ~/mrt_model/yolov5x.params
-    cp path-to-model-json/yolov5x-0010.json ~/mrt_model/yolov5x.json
+    cp weight/yolov5x-xxxx.params qout/yolov5x.params
+    cp weight/yolov5x.json qout/yolov5x.json
 
-make a yaml file yolov5x.yaml like as https://github.com/CortexFoundation/cvm-runtime/blob/ryt/tests/mrt/yolov5s/yolov5s.yaml, save as cvm-runtime/tests/mrt/model_zoo/yolov5x.yaml, then
+make a yaml file yolov5x.yaml like as https://github.com/CortexFoundation/cvm-runtime/blob/ryt/tests/mrt/yolov5s/yolov5s.yaml, save as qconf/yolov5x.yaml (there are examples for different network structure), then run
 
-    cd cvm-runtime/
-    python main2 tests/mrt/model_zoo/tests/mrt/model_zoo/yolov5x.yaml --compile.dump_dir /tmp/
+    python quantize.py --model=yolov5x
 
-MRT will generate two files in /tmp/yolov5x_cvm/ includind fixed-point parameter file "params" and symbol file "symbol".
+MRT will generate calibration and quantization files, and also some json configure information files. The 
+
+MRT will generate two files named "params" and "symbol" in qout/yolov5x_cvm/, which includes the quantized model parameters and symbol informations for upload in next step.
+
+Furthermore, we can examine performance degradation on quantization compared with float-point model,
+
+    python det_mrt.py --model=yolov5x    # with quantization
+    python detetect.py --model=yolov5x   # withou quantization
+
+generates detection images in result/yolov5x/ with inferred from quantized or non-quantized model.
+
+    python val_mrt.py --model=yolov5x    # with quantization
+    python val.py --model=yolov5x        # withou quantization
+
+will validate MAP performance and generate two files result/yolov5x_eval_quant.txt and result/yolov5x_eval_float.txt for comparison
 
 #### Model upload
 
