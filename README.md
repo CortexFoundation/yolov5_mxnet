@@ -12,11 +12,11 @@ Prepare the training dataset including image files and corresponding labels, mak
 
 For training, one need to specify the model name, batch size learning rate etc, then type command below for an example.
 
-    python train.py --model=yolov5x --cpu=False --gpu=0 --batch_size=16 --lr=0.0001
+    python train.py --model=yolov5x --fuse=False --cpu=False --gpu=0 --batch_size=16 --lr=0.0001
 
 Two traned model files (.params and .json) will be generated in folder ./weight/, which can used for validatation via 
 
-    python detect.py --model=yolov5x --cpu=False --gpu=0 --batch_size=1
+    python detect.py --model=yolov5x --fuse=False --cpu=False --gpu=0 --batch_size=1
 
 and the final output images save in ./results/yolov5x/ directory.
 
@@ -68,13 +68,13 @@ MRT will generate two files named "params" and "symbol" in qout/yolov5x_cvm/, wh
 
 Furthermore, we can examine performance degradation on quantization compared with float-point model,
 
-    python det_mrt.py --model=yolov5x    # with quantization
-    python detetect.py --model=yolov5x   # withou quantization
+    python det_mrt.py --model=yolov5x                # with quantization
+    python detetect.py --model=yolov5x --fuse=False  # withou quantization
 
 generates detection images in result/yolov5x/ with inferred from quantized or non-quantized model.
 
-    python val_mrt.py --model=yolov5x    # with quantization
-    python val.py --model=yolov5x        # withou quantization
+    python val_mrt.py --model=yolov5x                # with quantization
+    python val.py --model=yolov5x --fuse=False       # withou quantization
 
 will validate MAP performance and generate two files result/yolov5x_eval_quant.txt and result/yolov5x_eval_float.txt for comparison
 
