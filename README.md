@@ -78,7 +78,7 @@ generates detection images in result/yolov5x/ with inferred from quantized or no
 
 will validate MAP performance and generate two files result/yolov5x_eval_quant.txt and result/yolov5x_eval_float.txt for comparison
 
-we quantized original models pre-trained in project https://github.com/ultralytics/yolov5, and found the performance loss is negligible for all model scales. Evaluation results are recorded in files "result/model-name_eval_quant.txt" and "result/model-name_eval_float.txt".
+we quantized the original models pre-trained in project https://github.com/ultralytics/yolov5, and found the performance loss is negligible for all model scales. Evaluation results are recorded in files "result/model-name_eval_quant.txt" and "result/model-name_eval_float.txt".
 
 #### Model upload
 
