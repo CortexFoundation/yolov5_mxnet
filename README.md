@@ -52,6 +52,7 @@ and compile
 Please refer to https://github.com/CortexFoundation/cvm-runtime/blob/master/docs/cvm/install.md for details.
 
 After compiling and installation stage, one needs to configure the environment variable as following for example.
+
     export CVM_HOME=$HOME/cvm-runtime
     export PYTHONPATH=$CVM_HOME/python:${PYTHONPATH}
     export MRT_HOME=$CVM_HOME/python/mrt
