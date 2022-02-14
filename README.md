@@ -62,6 +62,59 @@ After compiling and installation stage, one needs to configure the environment v
 
 MRT, short for Model Representation Tool, aims to convert floating model into a deterministic and non-data-overflow network. MRT links the off-chain developer community to the on-chain ecosystem, from Off-chain deep learning to MRT transformations, and then uploading to Cortex Blockchain for on-chain deterministic inference.
 
+Paste the code to file cvm-runtime/python/mrt/dataset.py
+
+	@register_dataset("yolov5_dataset")
+	class Yolov5Dataset(Dataset):
+	    def __init__(self, input_shape, imgsz=640, **kwargs):
+		super().__init__(input_shape, **kwargs)
+		self.image_dir = path.join(self.root_dir, "images")
+		self.label_dir = path.join(self.root_dir, "labels")
+		self.imgsz = imgsz
+
+	    def _load_data(self):
+		assert len(self.ishape) == 4, self.ishape
+		batch_size = self.ishape[0]
+		#assert batch_size == 16, batch_size
+
+		def data_loader():
+		    data, label = [], []
+		    for f in sorted(os.listdir(self.image_dir)):
+			_, ext = os.path.splitext(f)
+			if ext != ".jpg" and ext != ".JPG" \
+			    and ext != ".png" and ext != ".PNG":
+			    continue
+			l = f.replace(f.split(".")[1], "txt")
+			file_name = os.path.join(self.image_dir, f)
+			label_name = os.path.join(self.label_dir, l)
+			img = cv2.imread(file_name)
+			# hack size
+			img = cv2.resize(img, tuple(self.ishape[2:]))
+			try:
+			    labels = np.loadtxt(label_name)
+			except:
+			    labels = np.array([])
+			labels = labels.reshape((-1, 5))
+			height, width = img.shape[0:2]
+			scale = min(self.imgsz/height, self.imgsz/width)
+			h0, w0 = height*scale, width*scale
+			img0 = cv2.resize(img, (round(w0/32.)*32, round(h0/32.)*32))
+			img = img0.astype("float32")/255.
+			img = nd.array(img.transpose((2,0,1))[None])
+			labels[:,1:] = labels[:,1:] * np.array([img.shape[3], img.shape[2]]*2)
+			# if img.shape[2] != self.ishape[2] or img.shape[3] != self.ishape[3]:
+			    # continue
+			if len(data) == batch_size:
+			    batch_data = nd.concatenate(data)
+			    yield batch_data, label
+			    data, label = [], []
+			data.append(img)
+			label.append(labels)
+		    if len(data) == batch_size:
+			batch_data = nd.concatenate(data)
+			yield batch_data, label
+		self.data = data_loader()
+
 There is a detailed example https://github.com/CortexFoundation/cvm-runtime/blob/dev-example/docs/mrt/example.md for MRT usage. After one got a trained model,
 
     cp weight/yolov5x-xxxx.params qout/yolov5x.params
