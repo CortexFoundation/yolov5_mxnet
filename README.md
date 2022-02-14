@@ -3,7 +3,7 @@ This repo includes training yolov5 model in MXNET framework, model quantization 
 ## How to use
 
 ### Convert from Pytorch Model
-Pytorch model weights were extraced and save as yolov5*.npy. This repo provided script convert.py in ./weights/ directory that convert pre-train Pytorch model to MXNet models *.params and *.json saveed in ./weights.
+Pytorch model weights were extraced and save as yolov5*.npy. This repo provided script convert.py in ./weights/ directory that convert pre-train Pytorch model to MXNet models *.params and *.json which are saveed in ./weights.
 
 	python convert.py --model=yolov5n --fuze=True --cpu=True
 	python convert.py --model=yolov5s --fuze=True --cpu=True
