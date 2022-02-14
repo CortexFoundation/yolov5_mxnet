@@ -64,7 +64,7 @@ def build_targets(pred, targets, ctx, imgsize=640):
         tbox.append(nd.array(np.concatenate((gxy-gij,gwh), axis=1), ctx=ctx))  # box
         anch.append(nd.array(anchors[a], ctx=ctx))  # anchors
         n = c.shape[0]
-        t = np.zeros((n, 80), dtype="float32")
+        t = np.zeros((n, pred[0].shape[4]-5), dtype="float32")
         t[range(n), c] = 1.
         tcls.append(nd.array(t, ctx=ctx))
 
@@ -165,7 +165,7 @@ class ComputeLoss(mx.gluon.loss.Loss):
               }
         self.hyp = hyp
         self.na = 3
-        self.nc = 80
+        self.nc = len(self.pos_weight)
         self.nl = 3
         self.anchors = nd.array([[[ 1.25000,  1.62500],
                                   [ 2.00000,  3.75000],

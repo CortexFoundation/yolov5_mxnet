@@ -43,7 +43,7 @@ class dataset(gluon.data.Dataset):
         bincount = np.sqrt(np.bincount(self.classes.astype("int32"), minlength=classes) + 10)
         self.weight = 1./bincount
         self.weight = self.weight * classes / np.sum(self.weight) 
-        self.weight = np.ones((80), dtype="float32")
+        self.weight = np.ones((classes), dtype="float32")
     def __len__(self):
         return len(self.img_files)
 

@@ -21,7 +21,7 @@ def parse_opt():
     parser.add_argument("--dataset",     type=str,     default="./dataset/trial/images",   help="trial data for debug or training")
     parser.add_argument("--model_dir",   type=str,     default="./weights/",      help="Model dir for save and load")
     parser.add_argument("--model",       type=str,     default="yolov5s", help="model name")
-    parser.add_argument("--fuse",        type=str2bool,default=True,    help="fuse conv and normal")
+    parser.add_argument("--fuse",        type=str2bool,default=False,    help="fuse conv and normal")
     opt = parser.parse_args()
     return opt
 
@@ -131,12 +131,12 @@ def main(opt):
         tp, fp, p, r, f1, ap, ap_class = ap_per_class(*stats, plot=False, save_dir=None, names=names)
         ap50, ap = ap[:, 0], ap.mean(1)  # AP@0.5, AP@0.5:0.95
         mp, mr, map50, map = p.mean(), r.mean(), ap50.mean(), ap.mean()
-        nt = np.bincount(stats[3].astype(np.int64), minlength=80)  # number of targets per class
+        nt = np.bincount(stats[3].astype(np.int64), minlength=opt.classes)  # number of targets per class
     else:
         nt = np.zeros(1)
 
     s  = f'{opt.dataset}: #imges={seen}, #objects={nt.sum()}, mp={mp*100:02.2f}%, mr={mr*100:02.2f}%, map50={map50*100:02.2f}%, map={map*100:02.2f}%'
-    fp = open(os.path.join("./result", opt.model+"_eval_float.txt"),"w")
+    fp = open(os.path.join("./results", opt.model+"_eval_float.txt"),"w")
     fp.write(s)
     fp.close()
 

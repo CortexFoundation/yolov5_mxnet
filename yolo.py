@@ -403,11 +403,12 @@ class detect(HybridBlock):
 
 
 class yolov5(HybridBlock):
-    def __init__(self, batch_size = 16, mode="train", ctx=mx.cpu(), act="silu", gd=1, gw=1, fuse=False):
+    def __init__(self, batch_size = 16, classes=80, mode="train", ctx=mx.cpu(), act="silu", gd=1, gw=1, fuse=False):
         super(yolov5, self).__init__()
         self.ctx = ctx
         self.mode = mode
         self.batch_size = batch_size
+        self.classes = classes
         self.act = act
         self.fuse = fuse
         self.conv1 = conv(3, 16*gw,6,2,2, act=self.act, fuse=self.fuse)
@@ -435,7 +436,7 @@ class yolov5(HybridBlock):
         self.cat4  = cat(dim=1)
         self.c3_8 = eval(f'c3_rep{gd*1}')(256*gw,256*gw,1,False,group=1,e=0.5, act=self.act, fuse=self.fuse)
         anchors = [[10,13, 16,30, 33,23],[30,61, 62,45, 59,119],[116,90, 156,198, 373,326]]
-        self.det  = detect(self.batch_size, nc=80, anchors=anchors,ch=[64*gw,128*gw,256*gw],inplace=True, mode=self.mode,ctx=self.ctx)
+        self.det  = detect(self.batch_size, nc=self.classes, anchors=anchors,ch=[64*gw,128*gw,256*gw],inplace=True, mode=self.mode,ctx=self.ctx)
     def hybrid_forward(self, F, x):
         x = self.conv1(x)              #0
         x = self.conv2(x)              #1

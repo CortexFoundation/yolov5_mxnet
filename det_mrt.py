@@ -14,7 +14,7 @@ from mrt import sim_quant_helper as sim
 
 def parse_opt():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--cpu",         type=str2bool,default=False,     help="whether or not using cpu for training")
+    parser.add_argument("--cpu",         type=str2bool,default=False,   help="whether or not using cpu for training")
     parser.add_argument("--gpu",         type=int,   default=2,         help="which gpu used for training")
     parser.add_argument("--batch_size",  type=int,   default=1,         help="batch size used for training")
     parser.add_argument("--classes",     type=int,   default=80,        help="how many classes for the detection and classfication problem")
@@ -22,7 +22,7 @@ def parse_opt():
     parser.add_argument("--dataset",     type=str,   default="./dataset/trial/images",   help="trial data for debug or training")
     parser.add_argument("--model_dir",   type=str,   default="./qout",      help="Model dir for save and load")
     parser.add_argument("--model",       type=str,   default="yolov5s", help="model name")
-    parser.add_argument("--silu",        type=str,   default="silu",    help="activation with silu or relu")
+    parser.add_argument("--fuse",        type=str,   default=True,      help="activation with silu or relu")
     opt = parser.parse_args()
     return opt
 
@@ -50,7 +50,7 @@ def main(opt):
     qgraph, inputs_ext, oscales = get_quantized_model(opt.model_dir, opt.model, ctx)
    
 
-    dirs = os.path.join("./result/", opt.model)
+    dirs = os.path.join("./results/", opt.model)
     if not os.path.exists(dirs):
         os.makedirs(dirs)
     else:

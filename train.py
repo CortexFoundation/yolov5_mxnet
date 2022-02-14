@@ -27,7 +27,7 @@ def parse_opt():
     parser.add_argument("--dataset",     type=str,   default="./dataset/trial",   help="trial data for debug or training")
     parser.add_argument("--model_dir",   type=str,   default="./weights",      help="Model dir for save and load")
     parser.add_argument("--model",       type=str,   default="yolov5x", help="model name")
-    parser.add_argument("--fuse",        type=str2bool,   default=True,    help="fuse conv and normal")
+    parser.add_argument("--fuse",        type=str2bool,   default=False,    help="fuse conv and normal")
     parser.add_argument("--step",        type=list,  default=[300000, 600000], help="period for lr update when training")
     opt = parser.parse_args()
     return opt
@@ -64,7 +64,7 @@ def main(opt):
     gw = {"n":1, "s":2, "m":3, "l":4, "x":5}
     gd = {"n":1, "s":1, "m":2, "l":3, "x":4}
     postfix = args.model[-1]
-    model = yolov5(batch_size=args.batch_size, mode="train", ctx=ctx, gd=gd[postfix], gw=gw[postfix], fuse=args.fuse)
+    model = yolov5(batch_size=args.batch_size, classes=opt.classes, mode="train", ctx=ctx, gd=gd[postfix], gw=gw[postfix], fuse=args.fuse)
 
     model.collect_params().initialize(init=mx.init.Xavier(), ctx=ctx)
     model.hybridize()

@@ -21,7 +21,7 @@ def parse_opt():
     parser.add_argument("--dataset",     type=str,   default="./dataset/trial/images",   help="trial data for debug or training")
     parser.add_argument("--model_dir",   type=str,   default="./weights/",      help="Model dir for save and load")
     parser.add_argument("--model",       type=str,   default="yolov5s", help="model name")
-    parser.add_argument("--fuse",        type=str2bool,   default=True,    help="fuse conv and normal")
+    parser.add_argument("--fuse",        type=str2bool,   default=False,    help="fuse conv and normal")
     opt = parser.parse_args()
     return opt
 
@@ -69,7 +69,7 @@ def main(opt):
     except:
         print("failed to load weight")
 
-    dirs = os.path.join("./result/", opt.model) 
+    dirs = os.path.join("./results/", opt.model) 
     if not os.path.exists(dirs):
         os.makedirs(dirs)
     else:
