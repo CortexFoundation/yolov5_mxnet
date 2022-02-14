@@ -62,7 +62,7 @@ After compiling and installation stage, one needs to configure the environment v
 
 MRT, short for Model Representation Tool, aims to convert floating model into a deterministic and non-data-overflow network. MRT links the off-chain developer community to the on-chain ecosystem, from Off-chain deep learning to MRT transformations, and then uploading to Cortex Blockchain for on-chain deterministic inference.
 
-Paste the code to file cvm-runtime/python/mrt/dataset.py
+Paste the following snippet to the end of file cvm-runtime/python/mrt/dataset.py
 
 	@register_dataset("yolov5_dataset")
 	class Yolov5Dataset(Dataset):
