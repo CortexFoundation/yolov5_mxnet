@@ -82,14 +82,14 @@ Furthermore, we can examine performance degradation on quantization compared wit
     python det_mrt.py --model=yolov5*                # with quantization
     python detetect.py --model=yolov5* --fuse=False  # withou quantization
 
-generates detection images in result/yolov5*/ with inferred from quantized or non-quantized model.
+generates detection images in results/yolov5*/ with inferred from quantized or non-quantized model.
 
     python val_mrt.py --model=yolov5*                # with quantization
     python val.py --model=yolov5* --fuse=False       # withou quantization
 
-will validate MAP performance and generate two files result/yolov5*_eval_quant.txt and result/yolov5*_eval_float.txt for comparison
+will validate MAP performance and generate two files results/yolov5*_eval_quant.txt and results/yolov5*_eval_float.txt for comparison
 
-we quantized the original models pre-trained in project https://github.com/ultralytics/yolov5, and found the performance loss is negligible for all model scales. Evaluation results are recorded in files "result/model-name_eval_quant.txt" and "result/model-name_eval_float.txt".
+we quantized the original models pre-trained in project https://github.com/ultralytics/yolov5, and found the performance loss is negligible for all model scales. Evaluation results are recorded in files "results/model-name_eval_quant.txt" and "results/model-name_eval_float.txt".
 
 #### Model upload
 
