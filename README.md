@@ -146,7 +146,7 @@ we quantized the original models pre-trained in project https://github.com/ultra
 
 #### Model upload
 
-Following instructions on https://github.com/CortexFoundation/torrentfs, to make torrent file and upload to Cortex blockchain. One can find the model in cerebro explorer https://cerebro.cortexlabs.ai/#/model and enjoy the on-chain AI inference after successful uploading.
+Following instructions on https://github.com/CortexFoundation/tech-doc/blob/master/model-writing-tutorial.md and https://github.com/CortexFoundation/torrentfs, to make torrent file and upload to Cortex blockchain. One can find the model in cerebro explorer https://cerebro.cortexlabs.ai/#/model and enjoy the on-chain AI inference after successful uploading.
 
 
     
